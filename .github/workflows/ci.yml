@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - run: dotnet restore Acme.All.slnx
+
+      - run: dotnet build Acme.All.slnx --no-restore
+
+      # No services block: every test here runs without Postgres or Docker. The one place that would need a
+      # database is replaced with an in-memory repository, which is the point of keeping the logic out of it.
+      - run: dotnet test Acme.All.slnx --no-build --verbosity normal

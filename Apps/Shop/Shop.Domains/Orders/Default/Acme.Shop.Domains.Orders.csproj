@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Acme.Shop.Domains.Orders</AssemblyName>
+    <RootNamespace>Acme.Shop.Domains.Orders</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagicCSharp" />
+    <PackageReference Include="MagicCSharp.Data" />
+    <PackageReference Include="MagicCSharp.Events" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Acme.Shop.Domains.Orders.Models.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Libs\Events\Default\Acme.Libraries.Events.csproj" />
+    <ProjectReference Include="..\..\..\Data\Data.Models\Acme.Shop.Data.Models.csproj" />
+  </ItemGroup>
+
+</Project>

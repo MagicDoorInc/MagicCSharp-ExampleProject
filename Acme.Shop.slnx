@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Apps/" />
+  <Folder Name="/Apps/Shop/" />
+  <Folder Name="/Apps/Shop/Shop.App.Tests/">
+    <Project Path="Apps/Shop/Shop.App.Tests/Acme.Shop.App.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Apps/Shop/Shop.App/" />
+  <Project Path="Apps/Shop/Data/Data.EntityFramework/Acme.Shop.Data.EntityFramework.csproj" />
+  <Project Path="Apps/Shop/Data/Data.Models/Acme.Shop.Data.Models.csproj" />
+  <Project Path="Apps/Shop/Shop.App/Acme.Shop.App.csproj" />
+  <Project Path="Apps/Shop/Shop.Domains/Orders/Default/Acme.Shop.Domains.Orders.csproj" />
+  <Project Path="Apps/Shop/Shop.Domains/Orders/Models/Acme.Shop.Domains.Orders.Models.csproj" />
+  <Project Path="Apps/Shop/Shop.Domains/Orders/Tests/Acme.Shop.Domains.Orders.Tests.csproj" />
+</Solution>

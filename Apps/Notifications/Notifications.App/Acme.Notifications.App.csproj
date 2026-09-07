@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <AssemblyName>Acme.Notifications.App</AssemblyName>
+    <RootNamespace>Acme.Notifications.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Brings in MagicCSharp, .AspNetCore, .Events and .Scheduling. Reference those directly instead if
+         you would rather wire each piece yourself. -->
+    <PackageReference Include="MagicCSharp.App" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Notifications.Domains\Delivery\Default\Acme.Notifications.Domains.Delivery.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagicCSharp.Data" />
+    <PackageReference Include="MagicCSharp.Events" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="MagicCSharp.Testing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Default\Acme.Shop.Domains.Orders.csproj" />
+    <ProjectReference Include="..\..\..\Data\Data.Models\Acme.Shop.Data.Models.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Libs\Events\Default\Acme.Libraries.Events.csproj" />
+  </ItemGroup>
+
+</Project>

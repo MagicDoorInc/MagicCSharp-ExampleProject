@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Apps/Notifications/Notifications.App/Acme.Notifications.App.csproj" />
+  <Project Path="Apps/Notifications/Notifications.Domains/Delivery/Default/Acme.Notifications.Domains.Delivery.csproj" />
+  <Project Path="Apps/Notifications/Notifications.Domains/Delivery/Models/Acme.Notifications.Domains.Delivery.Models.csproj" />
+  <Project Path="Apps/Notifications/Notifications.Domains/Delivery/Tests/Acme.Notifications.Domains.Delivery.Tests.csproj" />
+</Solution>

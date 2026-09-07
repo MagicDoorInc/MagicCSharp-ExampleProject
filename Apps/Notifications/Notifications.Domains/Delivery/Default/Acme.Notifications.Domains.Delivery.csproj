@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Acme.Notifications.Domains.Delivery</AssemblyName>
+    <RootNamespace>Acme.Notifications.Domains.Delivery</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagicCSharp" />
+    <PackageReference Include="MagicCSharp.Events" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Acme.Notifications.Domains.Delivery.Models.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Libs\Events\Default\Acme.Libraries.Events.csproj" />
+  </ItemGroup>
+
+</Project>

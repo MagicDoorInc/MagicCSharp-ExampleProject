@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Acme.Notifications.Domains.Delivery.Models</AssemblyName>
+    <RootNamespace>Acme.Notifications.Domains.Delivery.Models</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagicCSharp" />
+  </ItemGroup>
+
+</Project>

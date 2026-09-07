@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Acme.Shop.Domains.Orders.Models</AssemblyName>
+    <RootNamespace>Acme.Shop.Domains.Orders.Models</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagicCSharp" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Acme.Shop.Data.EntityFramework</AssemblyName>
+    <RootNamespace>Acme.Shop.Data.EntityFramework</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagicCSharp.Data.EntityFramework" />
+    <PackageReference Include="MagicCSharp.Data.Postgres" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data.Models\Acme.Shop.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Shop.Domains\Orders\Models\Acme.Shop.Domains.Orders.Models.csproj" />
+  </ItemGroup>
+
+</Project>
