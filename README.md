@@ -25,16 +25,18 @@ Acme.Shop.slnx                     one service, for day-to-day work
 Acme.Notifications.slnx
 
 Apps/Shop/
-  Shop.App/                        Program.cs, OrdersController
+  Shop.App/                        Program.cs and configuration — no controllers of its own
   Shop.App.Tests/                  the service end to end, no database
   Shop.Domains/Orders/
     Default/UseCases/              PlaceOrderUseCase, GetOrdersUseCase
     Models/Entities/               Order, OrderEdit, OrderFilter, ApiKey
     Tests/
+    App/Default/                   OrdersController — this domain's own endpoints
   Data/
     Data.Models/Repositories/      IOrdersRepository, IApiKeysRepository
     Data.EntityFramework/          OrderDal, OrdersEfRepository, MagicShopContext
       Migrations/                  InitialSchema — orders and api_keys
+    Data.EntityFramework.Tests/    the repository against a real Postgres
 
 Apps/Notifications/
   Notifications.App/               Program.cs, an endpoint standing in for a queue listener
@@ -60,7 +62,11 @@ dotnet build Acme.All.slnx
 dotnet test Acme.All.slnx
 ```
 
-Sixteen tests, and none of them needs Postgres or Docker.
+Twenty-eight tests. Sixteen need nothing; twelve start a Postgres container. To skip those:
+
+```bash
+dotnet test Acme.All.slnx --filter "Category!=Database"
+```
 
 To run the Shop service you do need a database:
 
@@ -129,6 +135,7 @@ mcs create-app --name Shop --database shop
 mcs create-app --name Notifications                       # no --database: no data projects
 
 mcs create-domain --solution Shop --name Orders --models --tests
+mcs create-domain --solution Shop --name Orders.App             # the domain's own endpoints
 mcs add-entity --solution Shop --domain Orders --name Order --paginated
 mcs add-entity --solution Shop --domain Orders --name ApiKey --use-key
 
@@ -151,10 +158,11 @@ generated:
 | `Libs/Events/Default/OrderPlacedEvent.cs` | A cross-service contract carrying ids and primitives, never an entity |
 | `Apps/Shop/Shop.Domains/Orders/Default/UseCases/PlaceOrderUseCase.cs` | Business logic with no HTTP and no EF, so a test needs neither |
 | `Apps/Shop/Shop.Domains/Orders/Default/UseCases/GetOrdersUseCase.cs` | Reads through a use case too, and `GetOrThrow` instead of a null check |
-| `Apps/Shop/Shop.App/Controllers/OrdersController.cs` | A controller that calls use cases and touches no repository |
+| `Apps/Shop/Shop.Domains/Orders/App/Default/OrdersController.cs` | A controller that calls use cases and touches no repository, living with the domain it serves |
 | `Apps/Shop/Data/Data.EntityFramework/Repositories/OrdersEfRepository.cs` | A real `ApplyFilter` over the generated base |
 | `Apps/Notifications/.../EventHandlers/OrderPlacedHandler.cs` | The other end of the contract, in a service that shares no code with the publisher |
 | `Apps/Shop/Shop.App.Tests/OrdersEndpointTests.cs` | The whole pipeline under test with one fake substituted |
+| `Apps/Shop/Data/Data.EntityFramework.Tests/OrdersEfRepositoryTests.cs` | The repository against a real database, running the committed migration |
 
 ## Things this example is making a point about
 
@@ -178,6 +186,19 @@ request in the logs. There is a test for it, because it was once wrong.
 column. Inserting a member into the middle of an enum renumbers everything after it, and a client that
 hard-coded `0` is then wrong with nothing to report it. The cost is that a client needs
 `JsonStringEnumConverter` to read the response — `OrdersEndpointTests` shows the two lines that takes.
+
+**Controllers live with their domain, not in the host.** `Shop.App` has a `Program.cs` and no endpoints of
+its own. `OrdersController` is in `Shop.Domains/Orders/App`, beside the use cases it calls. The host
+references that project and serves its routes with nothing else wired — no `AddApplicationPart`. Add a
+second domain and its endpoints do not land in the same folder as this one's.
+
+**The repository is tested against a real database, not a fake one.** A use case is worth testing with
+fakes; a repository is mostly translation — a filter into SQL, a row into an entity — and only Postgres can
+say whether the translation is right. `OrdersEfRepositoryTests` starts a container, runs the committed
+migration rather than building the schema from the model (so a migration that has drifted fails here rather
+than at deploy), and checks the things that have no in-memory equivalent: `numeric` keeping a decimal's
+scale, the status column holding `Paid` rather than `1`, `timestamptz` coming back as UTC, and paging that
+starts at page one.
 
 **Two services, one repository, no shared code.** Shop does not reference Notifications and Notifications
 does not reference Shop. Swapping `AddLocalMagicEvents` for Kafka or SQS is a registration change in

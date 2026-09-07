@@ -3,12 +3,17 @@ using Acme.Shop.Domains.Orders.UseCases;
 using MagicCSharp.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Acme.Shop.App.Controllers;
+namespace Acme.Shop.Domains.Orders.App;
 
 /// <summary>
 ///     The thin end of the slice: HTTP in, use case, HTTP out. It holds no logic of its own and touches no
 ///     repository — everything worth testing lives behind <see cref="IPlaceOrderUseCase" /> and
 ///     <see cref="IGetOrdersUseCase" />, where a test reaches it without a web host or a database.
+///     <para>
+///         This project is the Orders domain's own HTTP surface, not the service's. The host references it
+///         and serves these routes with no other wiring, which is what keeps <c>Shop.App</c> a shell rather
+///         than a folder collecting every domain's controllers.
+///     </para>
 ///     <para>
 ///         Neither use case is registered anywhere by hand. MagicCSharp finds every implementation of
 ///         <c>IMagicUseCase</c> at startup and registers it under its own interface.

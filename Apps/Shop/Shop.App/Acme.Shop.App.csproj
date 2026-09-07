@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.EntityFramework\Acme.Shop.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\Shop.Domains\Orders\Default\Acme.Shop.Domains.Orders.csproj" />
+    <ProjectReference Include="..\Shop.Domains\Orders\App\Default\Acme.Shop.Domains.Orders.App.csproj" />
   </ItemGroup>
 
 </Project>

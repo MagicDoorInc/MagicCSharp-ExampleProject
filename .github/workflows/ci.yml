@@ -20,6 +20,7 @@ jobs:
 
       - run: dotnet build Acme.All.slnx --no-restore
 
-      # No services block: every test here runs without Postgres or Docker. The one place that would need a
-      # database is replaced with an in-memory repository, which is the point of keeping the logic out of it.
+      # No services block, and none needed: the repository tests start their own Postgres through
+      # Testcontainers, and the runner has Docker. Everything above the repository is tested with an
+      # in-memory one instead, which is the point of keeping the logic out of it.
       - run: dotnet test Acme.All.slnx --no-build --verbosity normal
