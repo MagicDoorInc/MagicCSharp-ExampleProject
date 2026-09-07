@@ -18,10 +18,8 @@ public static class ShopRepositoriesModule
     public static IServiceCollection AddShopRepositories(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPostgresDbContextFactory<MagicShopContext>(configuration);
-
-                services.AddScoped<IOrdersRepository, OrdersEfRepository>();
-
-                services.AddScoped<IApiKeysRepository, ApiKeysEfRepository>();
+        services.AddScoped<IOrdersRepository, OrdersEfRepository>();
+        services.AddScoped<IApiKeysRepository, ApiKeysEfRepository>();
 
         return services;
     }
